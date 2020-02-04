@@ -3,7 +3,9 @@ import CourseTable from './CourseTable.js';
 import CourseGrid from './CourseGrid.js';
 import {deleteCourse, createCourse, findAllCourses} from "../service/CourseService.js"
 import CourseEditor from "./CourseEditor/CourseEditor.js";
+var date = new Date()
 class CourseManagementComponent extends React.Component {
+
 	state = {
 	    choosecourse:'',
 		newcoursetitle:'',
@@ -58,7 +60,7 @@ class CourseManagementComponent extends React.Component {
           {
               const newCourse = {
                   title: this.state.newcoursetitle,
-                  id: 123, owner:"me",modified:"me",time:"9:00"
+                  id: 123, owner:"me",modified:"me",time: date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
               }
               const actualCourse = await createCourse(newCourse)
               console.log(actualCourse)

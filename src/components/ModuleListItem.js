@@ -48,7 +48,7 @@ state = {
                                         this.setState({
                                             editing: false
                                         })
-                                    }}>Save</button>
+                                    }}><i class="fa fa-check"> </i></button>
                 </td>
 				<td></td>
 			</tr>
