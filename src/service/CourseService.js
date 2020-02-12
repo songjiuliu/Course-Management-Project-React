@@ -18,6 +18,9 @@ export const deleteCourse = async (courseId) => {
     return await response.json()
 }
 
+
+
+
 export const createCourse = async (course) =>
 {
     const response = await fetch(API_URL, {
@@ -34,3 +37,12 @@ export const findAllCourses = () => {
     return fetch(API_URL)
         .then(response => response.json())
 }
+
+export const findCourseById = async (courseId) =>{
+       const response = await fetch(`${API_URL}/${courseId}`, {
+               method: 'GET'
+           })
+           return await response.json().title.toString()
+
+    }
+export default {updateCourse,deleteCourse,createCourse,findCourseById,findAllCourses}
