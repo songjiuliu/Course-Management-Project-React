@@ -34,12 +34,20 @@ export default class ModuleListComponent extends React.Component {
                                     activeModuleId: module._id
                                 })
                             }}
-                            save={() => this.setState({
-                                editingModuleId: ''
-                            })}
+                            save={() => {
+                                const moduleId = module._id
+                                this.props.history.push(`/course-editor/`)
+                                this.props.history.push(`/course-editor/${this.props.courseId}/module/${moduleId}`)
+                                this.setState({
+                                    editingModuleId: ''
+                                })
+                            }
+                            }
                             editing={module._id === this.state.editingModuleId}
                             active={module._id === this.state.activeModuleId}
-                            module={module}/>)
+                            module={module}
+                            courseId={this.props.courseId}
+                        />)
                 }
                 <li className="list-group-item">
                     <button onClick={

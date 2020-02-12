@@ -8,13 +8,23 @@ import {connect} from "react-redux";
 import ModuleService from "../service/ModuleService";
 import LessonTabs from "./LessonTabs";
 
+let newTitle = ""
 
+const updateModule = (moduleId, newtitle) => {
+    fetch(`${MODULES_API_URL}/${moduleId}`, {
+        method: 'PUT',
+        body: JSON.stringify({title: newtitle}),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
+}
 
-const ModuleList = ({save, edit, editing, module, deleteModule, active, select}) =>
+const ModuleList = ({save, edit, editing, module, deleteModule, active, select, updateModule, courseId}) =>
     <li
         onClick={select}
-        className={`list-group-item ${active ? 'active':''}`}>
-        {!editing&&module.title}
+        className={`list-group-item ${active ? 'active' : ''}`}>
+        {!editing && module.title}
 
         {editing &&
         <span>
@@ -23,8 +33,17 @@ const ModuleList = ({save, edit, editing, module, deleteModule, active, select})
                     className="float-right">
                 Delete
             </button>
-            
-            <button onClick={save}>
+            <input
+                onChange={(e) => {
+                    newTitle = e.target.value
+                }}
+            />
+            <button onClick={(event) => {
+                updateModule( {title: newTitle},module._id)
+                //deleteModule("")
+                save()
+            }
+            }>
                 Save
             </button>
         </span>}
@@ -32,9 +51,6 @@ const ModuleList = ({save, edit, editing, module, deleteModule, active, select})
             Edit
         </button>}
     </li>
-
-
-
 
 
 // class ModuleList extends React.Component {
@@ -158,6 +174,23 @@ const dispatchToPropertyMapper = (dispatch) => ({
                 type: 'DELETE_MODULE',
                 moduleId: moduleId
             }))
+    },
+    updateModule: (module, moduleId) => {
+        fetch(`${MODULES_API_URL}/${moduleId}`, {
+            method: 'PUT',
+            body: JSON.stringify(module),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => response.json()).then(status => {
+            dispatch({
+                type: 'UPDATE_MODULE',
+                moduleId: moduleId,
+                module: module
+            })
+        })
+
+
     }
 })
 
