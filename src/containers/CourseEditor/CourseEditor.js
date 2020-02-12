@@ -78,11 +78,14 @@ import {Provider} from "react-redux";
 import modules from '../../reducers/moduleReducer'
 import lessons from '../../reducers/lessonReducer'
 import widgets from '../../reducers/widgetReducer'
+import topics from '../../reducers/topicReducer'
+
 import ModuleListContainer from "../../containers/ModuleListContainer";
 import WidgetList from "../../components/WidgetList";
+import TopicPills from "../../components/TopicPills";
 
 const reducers = combineReducers({
-    modules, lessons, widgets
+    modules, lessons, widgets , topics
 })
 
 const gettitle = (courses,target) => {
@@ -94,7 +97,7 @@ const gettitle = (courses,target) => {
 }
 const store = createStore(reducers)
 
-const CourseEditor = ({hideEditor, match, courseId, moduleId, history,courses}) =>
+const CourseEditor = ({hideEditor, match, courseId, moduleId, history,courses,lessonId}) =>
     <Provider store={store}>
         <div>
             <button onClick={() => {
@@ -115,8 +118,14 @@ const CourseEditor = ({hideEditor, match, courseId, moduleId, history,courses}) 
                 </div>
                 <div className="col-9">
                     <LessonTabs
-                        moduleId={moduleId}/>
-                    {/*<TopicPills/>*/}
+                        moduleId={moduleId}
+                        history={history}
+                        courseId={courseId}
+                    />
+                    <TopicPills
+                        lessonId={lessonId}
+                        history={history}
+                    />
                     <WidgetList/>
                 </div>
             </div>

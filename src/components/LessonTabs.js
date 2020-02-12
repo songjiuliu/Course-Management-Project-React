@@ -10,11 +10,12 @@ import {updateLesson} from '../service/LessonService.js'
 class LessonTabs extends React.Component {
 
     componentDidMount() {
+        console.log(this.props)
         this.props.findLessonsForModule(this.props.moduleId)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.moduleId !== prevProps.moduleId) {
+        if (this.props.moduleId !== prevProps.moduleId) {
             this.props.findLessonsForModule(this.props.moduleId)
         }
     }
@@ -29,17 +30,20 @@ class LessonTabs extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <ul className="nav nav-tabs">
                 {
                     this.props.lessons && this.props.lessons.map(lesson =>
                         <li className={`nav-item`}
-                            onClick={() => this.setState({
-                                selectedLessonId: lesson._id
-                            })}
+                            onClick={() => {
+                                this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)
+                                this.setState({
+                                    selectedLessonId: lesson._id
+                                })
+                            }}
                             key={lesson._id}>
                             <a className={`nav-link
-                                            ${(this.state.editingLessonId === lesson._id || this.state.selectedLessonId === lesson._id)?'active':''}`}>
+                                            ${(this.state.editingLessonId === lesson._id || this.state.selectedLessonId === lesson._id) ? 'active' : ''}`}>
                                 {this.state.editingLessonId !== lesson._id &&
                                 <span>{lesson.title}</span>}
                                 {this.state.editingLessonId === lesson._id &&
@@ -54,8 +58,7 @@ class LessonTabs extends React.Component {
                                         }))
                                     }}
                                     value={this.state.lesson.title}/>}
-                                <button onClick={() =>
-                                {
+                                <button onClick={() => {
                                     this.props.updateLesson(this.state.lesson)
                                         .then(() =>
                                             this.setState({
