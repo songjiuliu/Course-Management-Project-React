@@ -21,14 +21,14 @@ const updateModule = (moduleId, newtitle) => {
 }
 
 const ModuleList = ({save, edit, editing, module, deleteModule, active, select, updateModule, courseId}) =>
-    <li
+    <li class="list-group-item list-group-item-primary"
         onClick={select}
         className={`list-group-item ${active ? 'active' : ''}`}>
         {!editing && module.title}
 
         {editing &&
         <span>
-            <button onClick={() =>
+            <button type="button" class="btn btn-outline-secondary" onClick={() =>
                 deleteModule(module._id)}
                     className="float-right">
                 Delete
@@ -38,7 +38,7 @@ const ModuleList = ({save, edit, editing, module, deleteModule, active, select, 
                     newTitle = e.target.value
                 }}
             />
-            <button onClick={(event) => {
+            <button type="button" class="btn btn-outline-secondary" onClick={(event) => {
                 updateModule( {title: newTitle},module._id)
                 //deleteModule("")
                 save()
@@ -47,7 +47,7 @@ const ModuleList = ({save, edit, editing, module, deleteModule, active, select, 
                 Save
             </button>
         </span>}
-        {!editing && <button onClick={edit}>
+        {!editing && <button type="button" class="btn btn-outline-dark" onClick={edit}>
             Edit
         </button>}
     </li>

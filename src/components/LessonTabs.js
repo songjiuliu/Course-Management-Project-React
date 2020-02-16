@@ -12,6 +12,7 @@ class LessonTabs extends React.Component {
     componentDidMount() {
         console.log(this.props)
         this.props.findLessonsForModule(this.props.moduleId)
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -31,16 +32,20 @@ class LessonTabs extends React.Component {
 
     render() {
         return (
-            <ul className="nav nav-tabs">
+            <ul class="list-group">
+                <div class="row">
                 {
                     this.props.lessons && this.props.lessons.map(lesson =>
-                        <li className={`nav-item`}
+                        <li class="list-group-item list-group-item-success"
                             onClick={() => {
-                                this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)
                                 this.setState({
                                     selectedLessonId: lesson._id
                                 })
+                                this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)
+
+
                             }}
+                            className={this.state.selectedLessonId === lesson._id ? "list-group-item active" : "list-group-item"}
                             key={lesson._id}>
                             <a className={`nav-link
                                             ${(this.state.editingLessonId === lesson._id || this.state.selectedLessonId === lesson._id) ? 'active' : ''}`}>
@@ -58,7 +63,7 @@ class LessonTabs extends React.Component {
                                         }))
                                     }}
                                     value={this.state.lesson.title}/>}
-                                <button onClick={() => {
+                                <button type="button" class="btn btn-outline-secondary" onClick={() => {
                                     this.props.updateLesson(this.state.lesson)
                                         .then(() =>
                                             this.setState({
@@ -69,24 +74,23 @@ class LessonTabs extends React.Component {
                                 }>
                                     Save
                                 </button>
-                                <button onClick={
+                                <button type="button" class="btn btn-outline-secondary" onClick={
                                     () => this.props.deleteLesson(lesson._id)}>
-                                    X
+                                    <i className="fa fa-trash"></i>
                                 </button>
-                                <button onClick={() => {
+                                <button type="button" class="btn btn-outline-secondary" onClick={() => {
                                     this.setState({
                                         lesson: lesson,
                                         editingLessonId: lesson._id
                                     })
                                 }}>
-                                    Edit
+                                    <i className="fa fa-pencil"></i>
                                 </button>
                             </a>
                         </li>)
                 }
-                <li className="nav-item">
-                    <button onClick={() => this.props.addLesson(this.props.moduleId)}>+</button>
-                </li>
+                    <button type="button" class="btn btn-outline-secondary" onClick={() => this.props.addLesson(this.props.moduleId)}>+</button>
+                </div>
             </ul>
         )
     }

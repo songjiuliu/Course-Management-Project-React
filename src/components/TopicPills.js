@@ -1,21 +1,21 @@
  //    	import React from "react";
- //    	import '../../node_modules/bootstrap/dist/css/bootstrap.css'
- //        import '../../node_modules/font-awesome/css/font-awesome.min.css';
- //    	const TopicPills = () =>
- //        <ul class="nav nav-pills wbdv-topic-pill-list">
- //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link" href="#">Topic 1</a></li>
- //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link" href="#">Topic 2</a></li>
- //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link active" href="#">Topic 3</a></li>
- //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link" href="#">Topic 4</a></li>
- //    				<li class="nav-item"><a class="nav-link" href="#">
- //    				<button class="wbdv-button wbdv-topic-add-btn">
- //    				<i class="fa fa-plus-circle"></i>
- //    						</button></a></li>
- //    			</ul>
- //
- //
- //
- // export default TopicPills
+ //  //    	import '../../node_modules/bootstrap/dist/css/bootstrap.css'
+ //  //        import '../../node_modules/font-awesome/css/font-awesome.min.css';
+ //  //    	const TopicPills = () =>
+ //  //        <ul class="nav nav-pills wbdv-topic-pill-list">
+ //  //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link" href="#">Topic 1</a></li>
+ //  //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link" href="#">Topic 2</a></li>
+ //  //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link active" href="#">Topic 3</a></li>
+ //  //    				<li class="nav-item wbdv-topic-pill"><a class="nav-link" href="#">Topic 4</a></li>
+ //  //    				<li class="nav-item"><a class="nav-link" href="#">
+ //  //    				<button class="wbdv-button wbdv-topic-add-btn">
+ //  //    				<i class="fa fa-plus-circle"></i>
+ //  //    						</button></a></li>
+ //  //    			</ul>
+ //  //
+ //  //
+ //  //
+ //  // export default TopicPills
  import React from "react";
  import {TOPICS_API_URL, LESSONS_TOPICS_API_URL} from "../common/constants";
  import {updateTopic} from "../service/TopicService";
@@ -46,13 +46,17 @@
 
 	 render() {
 		 return(
-			 <ul className="nav nav-tabs">
+			 <ul class="list-group">
+				 <div class="row">
 				 {
 					 this.props.topics && this.props.topics.map(topic =>
-						 <li className={`nav-item`}
-							 onClick={() => this.setState({
-								 selectedLessonId: topic._id
-							 })}
+						 <li class="list-group-item list-group-item-primary"
+							 onClick={() => {
+								 this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic._id}`)
+								 this.setState({
+									 selectedTopicId: topic._id
+								 })
+							 }}
 							 key={topic._id}>
 							 <a className={`nav-link
                                             ${(this.state.editingTopicId === topic._id || this.state.selectedTopicId === topic._id)?'active':''}`}>
@@ -70,7 +74,7 @@
 										 }))
 									 }}
 									 value={this.state.topic.title}/>}
-								 <button onClick={() =>
+								 <button type="button" class="btn btn-outline-secondary" onClick={() =>
 								 {
 									 this.props.updateTopic(this.state.topic)
 										 .then(() =>
@@ -82,24 +86,24 @@
 								 }>
 									 Save
 								 </button>
-								 <button onClick={
+								 <button type="button" class="btn btn-outline-secondary" onClick={
 									 () => this.props.deleteTopic(topic._id)}>
-									 X
+									 <i className="fa fa-trash"></i>
 								 </button>
-								 <button onClick={() => {
+								 <button  type="button" class="btn btn-outline-secondary" onClick={() => {
 									 this.setState({
 										 topic: topic,
 										 editingTopicId: topic._id
 									 })
 								 }}>
-									 Edit
+									 <i className="fa fa-pencil"></i>
 								 </button>
 							 </a>
 						 </li>)
 				 }
-				 <li className="nav-item">
-					 <button onClick={() => this.props.addTopic(this.props.lessonId)}>+</button>
-				 </li>
+
+					 <button type="button" class="btn btn-outline-secondary" onClick={() => this.props.addTopic(this.props.lessonId)}>+</button>
+				 </div>
 			 </ul>
 		 )
 	 }

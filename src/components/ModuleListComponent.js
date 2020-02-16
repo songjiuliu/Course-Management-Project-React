@@ -15,7 +15,7 @@ export default class ModuleListComponent extends React.Component {
 
     render() {
         return (
-            <ul className="list-group">
+            <ul class="list-group">
                 {
                     this.props.modules && this.props.modules.map(module =>
                         <ModuleListItem
@@ -49,8 +49,8 @@ export default class ModuleListComponent extends React.Component {
                             courseId={this.props.courseId}
                         />)
                 }
-                <li className="list-group-item">
-                    <button onClick={
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-outline-secondary" onClick={
                         () => this.props.createModule(this.props.courseId, {title: 'New Module'})
                     }>
                         Add

@@ -147,7 +147,6 @@ gettitle = async  (props)=>
                         render={(props) =>
                             <CourseEditor
                                 {...props}
-
                                 moduleId={props.match.params.moduleId}
                                 courseId={props.match.params.courseId}
                                 courses={this.state.courses}
@@ -167,6 +166,20 @@ gettitle = async  (props)=>
                                 hideEditor={this.hideEditor}/>
                         }/>
 
+                    <Route
+                        path="/course-editor/:courseId/module/:moduleId/lesson/:lessonId/topic/:topicId"
+                        exact={true}
+                        render={(props) =>
+                            <CourseEditor
+                                {...props}
+                                lessonId={props.match.params.lessonId}
+                                moduleId={props.match.params.moduleId}
+                                courseId={props.match.params.courseId}
+                                topicId={props.match.params.topicId}
+                                courses={this.state.courses}
+                                //topicId={props.match.params.topicId}
+                                hideEditor={this.hideEditor}/>
+                        }/>
 
                     <Route
                         path="/"

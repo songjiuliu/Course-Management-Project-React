@@ -1,7 +1,7 @@
 import {CREATE_TOPIC, DELETE_TOPIC, UPDATE_TOPIC} from "../actions/topicActions.js";
 
 const initialState = {
-    lessons: [
+    topics: [
         {title: "topic 0000", _id: "000"},
         {title: "topic 123", _id: "123"},
         {title: "topic 234", _id: "234"},
