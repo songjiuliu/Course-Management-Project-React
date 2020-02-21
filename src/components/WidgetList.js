@@ -89,14 +89,16 @@ class WidgetList extends React.Component {
                         </li>
                     )
                 }
-                <li class="list-group-item list-group-item-info">
-                    <button
-                        type="button" class="btn btn-info"
-                        onClick={() => this.props.addWidget(this.props.topicId)
-                        }>
-                        <i className="fa fa-plus-circle"> </i>
-                    </button>
-                </li>
+                {this.props.topicId&&
+                    <li class="list-group-item list-group-item-info">
+                        <button
+                            type="button" class="btn btn-info"
+                            onClick={() => this.props.addWidget(this.props.topicId)
+                            }>
+                            <i className="fa fa-plus-circle"> </i>
+                        </button>
+                    </li>
+                }
             </ul>
         )
     }

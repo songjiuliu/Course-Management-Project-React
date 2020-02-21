@@ -20,7 +20,7 @@ const updateModule = (moduleId, newtitle) => {
     }).then(response => response.json())
 }
 
-const ModuleList = ({save, edit, editing, module, deleteModule, active, select, updateModule, courseId}) =>
+const ModuleList = ({save, edit, editing, module, deleteModule, active, select, updateModule, courseId,history}) =>
     <li class="list-group-item list-group-item-primary"
         onClick={select}
         className={`list-group-item ${active ? 'active' : ''}`}>
@@ -28,9 +28,12 @@ const ModuleList = ({save, edit, editing, module, deleteModule, active, select, 
 
         {editing &&
         <span>
-            <button type="button" class="btn btn-outline-secondary" onClick={() =>
-                deleteModule(module._id)}
-                    className="float-right">
+            <button type="button" class="btn btn-outline-secondary" onClick={() => {
+                deleteModule(module._id)
+                history.push("/")
+            }
+            }
+            >
                 Delete
             </button>
             <input
@@ -39,7 +42,7 @@ const ModuleList = ({save, edit, editing, module, deleteModule, active, select, 
                 }}
             />
             <button type="button" class="btn btn-outline-secondary" onClick={(event) => {
-                updateModule( {title: newTitle},module._id)
+                updateModule({title: newTitle}, module._id)
                 //deleteModule("")
                 save()
             }

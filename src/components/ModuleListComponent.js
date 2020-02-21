@@ -47,6 +47,7 @@ export default class ModuleListComponent extends React.Component {
                             active={module._id === this.state.activeModuleId}
                             module={module}
                             courseId={this.props.courseId}
+                            history={this.props.history}
                         />)
                 }
                 <li class="list-group-item">

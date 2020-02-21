@@ -48,12 +48,14 @@ const CourseEditor = ({hideEditor, match, courseId, moduleId, history,courses,le
                         moduleId={moduleId}
                         history={history}
                         courseId={courseId}
+                        lessonId={lessonId}
                     />
                     <TopicPills
                         moduleId={moduleId}
                         lessonId={lessonId}
                         history={history}
                         courseId={courseId}
+                        topicId={topicId}
                     />
                     <WidgetList
                         topicId={topicId}

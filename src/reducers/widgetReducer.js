@@ -13,7 +13,6 @@ const widgetReducer = (state = initialState, action) => {
             }
         }
         case 'UPDATE_WIDGET':
-
             return {
                 widgets: state.widgets.map(widget => widget.id === action.widget.id ? action.widget : widget)
             }

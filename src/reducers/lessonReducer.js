@@ -20,8 +20,9 @@ const lessonReducer = (state= initialState, action) => {
         }
         case 'UPDATE_LESSON':
             return {
+                //widgets: state.widgets.map(widget => widget.id === action.widget.id ? action.widget : widget)
                 lessons: state.lessons.map(lesson =>
-                    lesson._id === action.lessonId ? action.lesson : lesson
+                    lesson._id === action.lesson._id ? action.lesson : lesson
                 )
             }
         case "FIND_ALL_LESSONS":
