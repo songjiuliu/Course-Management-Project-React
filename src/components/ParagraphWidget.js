@@ -43,6 +43,7 @@ class ParagraphWidget extends React.Component {
                             <option value="HEADING">Heading</option>
                             <option value="PARAGRAPH">Paragraph</option>
                             <option value="IMAGE">Image</option>
+                            <option value="LIST">List</option>
                         </select>
                         <textarea class="form-control"
                             value={this.state.widget.text}

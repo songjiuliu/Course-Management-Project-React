@@ -55,6 +55,7 @@ class ImageWidget extends React.Component {
                             <option value="HEADING">Heading</option>
                             <option value="PARAGRAPH">Paragraph</option>
                             <option value="IMAGE">Image</option>
+                            <option value="LIST">List</option>
                         </select>
 
                         <button type="button" class="btn btn-outline-secondary" onClick={() => {

@@ -7,6 +7,7 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import HeadingWidget from "./HeadingWidget";
 import ParagraphWidget from "./ParagraphWidget";
 import ImageWidget from "./ImageWidget";
+import ListWidget from "./ListWidget";
 
 class WidgetList extends React.Component {
 
@@ -93,6 +94,13 @@ class WidgetList extends React.Component {
                             {
                                 widget.type === "IMAGE" &&
                                 <ImageWidget
+                                    save={this.save}
+                                    editing={widget.id === this.state.editingId}
+                                    widget={widget}/>
+                            }
+                            {
+                                widget.type === "LIST" &&
+                                <ListWidget
                                     save={this.save}
                                     editing={widget.id === this.state.editingId}
                                     widget={widget}/>
