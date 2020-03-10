@@ -1,7 +1,6 @@
 import React from "react";
 
-
-class ParagraphWidget extends React.Component {
+class ImageWidget extends React.Component {
     state = {
         widget: this.props.widget
     }
@@ -9,27 +8,41 @@ class ParagraphWidget extends React.Component {
     render() {
         return (
             <div>
-                <h3>Paragraph Widget</h3>
+                <h3>Image Widget</h3>
                 {
                     this.props.editing &&
                     <div>
                         <input
-                            class="form-control"
+                        className="form-control"
+                        onChange={(e) => {
+                            const newTitle = e.target.value;
+                            this.setState(prevState => ({
+                                widget: {
+                                    ...prevState.widget,
+                                    title: newTitle
+                                }
+                            }))
+                        }
+                        }
+                        value={this.state.widget.title}/>
+                        <input
+                            className="form-control"
                             onChange={(e) => {
-                                const newTitle = e.target.value;
+                                const newText = e.target.value;
                                 this.setState(prevState => ({
                                     widget: {
                                         ...prevState.widget,
-                                        title: newTitle
+                                        text: newText
                                     }
                                 }))
                             }
                             }
-                            value={this.state.widget.title}/>
+                            value={this.state.widget.text}/>
                         <select
                             class="custom-select"
                             onChange={(e) => {
                                 const newType = e.target.value
+                                console.log(e.target.value)
                                 this.setState(prevState => ({
                                     widget: {
                                         ...prevState.widget,
@@ -37,38 +50,31 @@ class ParagraphWidget extends React.Component {
                                     }
                                 }))
                             }}
-                            //value={this.state.widget.size}
-                            value={this.state.widget.type}
-                        >
+                            value={this.state.widget.type} >
+
                             <option value="HEADING">Heading</option>
                             <option value="PARAGRAPH">Paragraph</option>
                             <option value="IMAGE">Image</option>
                         </select>
-                        <textarea class="form-control"
-                            value={this.state.widget.text}
-                                  onChange={(e) => {
-                            const newText = e.target.value
-                            this.setState(prevState => ({
-                                widget: {
-                                    ...prevState.widget,
-                                    text: newText
-                                }
-                            }))
-                        }}></textarea>
+
                         <button type="button" class="btn btn-outline-secondary" onClick={() => {
                             this.props.save(this.state.widget)
                         }}>
-                            SAVE
+                            ok
                         </button>
                     </div>
                 }
                 {
                     <div>
-                        <h2>Preview</h2>
-                        <p>{this.props.widget.text}</p>
+                        <h3>{this.state.widget.title}</h3>
+                        {
+                            <img src={this.state.widget.text} />
+                        }
                     </div>
                 }
-            </div>)
+            </div>
+        )
     }
 }
-export default ParagraphWidget
+
+export default ImageWidget

@@ -25,7 +25,8 @@ class TopicPills extends React.Component {
 
     componentDidMount() {
         console.log(this.props)
-        this.props.findTopicsForLesson(this.props.lessonId)
+        if(this.props.lessonId)
+            this.props.findTopicsForLesson(this.props.lessonId)
 
 
     }
@@ -42,7 +43,7 @@ class TopicPills extends React.Component {
         editingTopicId: '',
         topic: {
             title: '',
-            _id: ''
+            id: ''
         }
     }
 
@@ -53,22 +54,23 @@ class TopicPills extends React.Component {
                 <ul class="list-group">
                     <div class="row">
                         {
-                            this.props.topics && this.props.topics.map(topic =>
+                            this.props.lessonId && this.props.topics && this.props.topics.map(topic =>
                                 <div class="row">
                                     <li class="list-group-item list-group-item-primary"
                                         onClick={() => {
-                                            this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic._id}`)
+                                            this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic.id}`)
                                             // this.setState({
-                                            //     selectedTopicId: topic._id
+                                            //     selectedTopicId: topic.id
                                             // })
                                         }}
-                                        className={this.props.topicId === topic._id ? "list-group-item active" : "list-group-item"}
-                                        key={topic._id}>
+                                        className={this.props.topicId === topic.id.toString() ? "list-group-item active" : "list-group-item"}
+                                        key={topic.id}>
                                         <a className={`nav-link
-                                            ${(this.state.editingTopicId === topic._id || this.props.topicId === topic._id) ? 'active' : ''}`}>
-                                            {this.state.editingTopicId !== topic._id &&
+                                            ${(
+                                            this.state.editingTopicId === topic.id.toString() || this.props.topicId == topic.id.toString()) ? 'active' : ''}`}>
+                                            {this.state.editingTopicId !== topic.id &&
                                             <span>{topic.title}</span>}
-                                            {this.state.editingTopicId === topic._id &&
+                                            {this.state.editingTopicId === topic.id &&
                                             <input
                                                 onChange={(e) => {
                                                     const newTitle = e.target.value
@@ -82,9 +84,8 @@ class TopicPills extends React.Component {
                                                 value={this.state.topic.title}/>
                                             }</a>
                                     </li>
-
                                     {
-                                        (this.state.editingTopicId === topic._id || this.props.topicId === topic._id) &&
+                                        (this.state.editingTopicId === topic.id.toString() || this.props.topicId === topic.id.toString()) &&
                                         <li class="list-group-item list-group-item-primary">
                                             <button type="button" class="btn btn-outline-secondary" onClick={() => {
                                                 this.props.updateTopic(this.state.topic)
@@ -99,7 +100,7 @@ class TopicPills extends React.Component {
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary" onClick={
                                                 () => {
-                                                    this.props.deleteTopic(topic._id)
+                                                    this.props.deleteTopic(topic.id)
                                                     this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}`)
                                                 }}>
                                                 <i className="fa fa-trash"></i>
@@ -107,7 +108,7 @@ class TopicPills extends React.Component {
                                             <button type="button" class="btn btn-outline-secondary" onClick={() => {
                                                 this.setState({
                                                     topic: topic,
-                                                    editingTopicId: topic._id
+                                                    editingTopicId: topic.id
                                                 })
                                             }}>
                                                 <i className="fa fa-pencil"></i>
@@ -150,7 +151,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
         dispatcher({
             type: 'UPDATE_TOPIC',
             topic: topic,
-            topicId: topic._id
+            topicId: topic.id
         })
     },
     addTopic: (lessonId) =>

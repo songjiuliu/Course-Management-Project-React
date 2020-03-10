@@ -2,11 +2,6 @@ import {CREATE_TOPIC, DELETE_TOPIC, UPDATE_TOPIC} from "../actions/topicActions.
 
 const initialState = {
     topics: [
-        {title: "topic 0000", _id: "000"},
-        {title: "topic 123", _id: "123"},
-        {title: "topic 234", _id: "234"},
-        {title: "topic 345", _id: "345"},
-        {title: "topic 456", _id: "456"}
     ]
 }
 const topicReducer = (state= initialState, action) => {
@@ -21,7 +16,7 @@ const topicReducer = (state= initialState, action) => {
         case 'UPDATE_TOPIC':
             return {
                 topics: state.topics.map(topic =>
-                    topic._id === action.topicId ? action.topic : topic
+                    topic.id === action.topicId ? action.topic : topic
                 )
             }
         case "FIND_ALL_TOPICS":
@@ -37,7 +32,7 @@ const topicReducer = (state= initialState, action) => {
             }
         case DELETE_TOPIC:
             return {
-                topics: state.topics.filter(topic => topic._id !== action.topicId)
+                topics: state.topics.filter(topic => topic.id !== action.topicId)
             }
         default:
             return state

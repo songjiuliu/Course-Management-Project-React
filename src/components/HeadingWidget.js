@@ -39,6 +39,7 @@ class HeadingWidget extends React.Component {
                             }}>
                             <option value="HEADING">Heading</option>
                             <option value="PARAGRAPH">Paragraph</option>
+                            <option value="IMAGE">Image</option>
                         </select>
 
                         <select

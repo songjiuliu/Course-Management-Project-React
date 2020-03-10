@@ -6,6 +6,7 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 import HeadingWidget from "./HeadingWidget";
 import ParagraphWidget from "./ParagraphWidget";
+import ImageWidget from "./ImageWidget";
 
 class WidgetList extends React.Component {
 
@@ -33,8 +34,10 @@ class WidgetList extends React.Component {
 
     componentDidMount() {
         //console.log(this.props)
-        this.props.findWidgetsForTopic(this.props.topicId)
+        if (this.props.topicId)
+            this.props.findWidgetsForTopic(this.props.topicId)
         console.log(this.state.widgets)
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -47,10 +50,11 @@ class WidgetList extends React.Component {
 
     render() {
         return (
-            <ul class="list-group">
 
+            <ul class="list-group">
+                <div>
                 {
-                    this.props.widgets && this.props.widgets.map(widget =>
+                    this.props.topicId&&this.props.widgets && this.props.widgets.map(widget =>
                         <li class="list-group-item list-group-item-info" key={widget.id}>
                             {
                                 <h3>Heading Widget</h3> && widget.type === "HEADING"
@@ -86,9 +90,17 @@ class WidgetList extends React.Component {
                                     editing={widget.id === this.state.editingId}
                                     widget={widget}/>
                             }
+                            {
+                                widget.type === "IMAGE" &&
+                                <ImageWidget
+                                    save={this.save}
+                                    editing={widget.id === this.state.editingId}
+                                    widget={widget}/>
+                            }
                         </li>
                     )
                 }
+                </div>
                 {this.props.topicId&&
                     <li class="list-group-item list-group-item-info">
                         <button
@@ -100,6 +112,7 @@ class WidgetList extends React.Component {
                     </li>
                 }
             </ul>
+
         )
     }
 
@@ -131,12 +144,11 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
                 widget: widget
             })),
     addWidget: (topicId) => {
-        let date = new Date();
-        date = date.getTime() + "";
+        //let date = new Date();
+        //date = date.getTime() + "";
         fetch(TOPICS_WIDGETS_API_URL(topicId), {
             method: 'POST',
             body: JSON.stringify({
-                id: date,
                 title: 'New Widget',
                 size: 2,
                 type: "HEADING",
